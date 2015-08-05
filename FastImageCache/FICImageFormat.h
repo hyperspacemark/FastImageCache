@@ -130,11 +130,6 @@ typedef NS_ENUM(NSUInteger, FICImageFormatStyle) {
 @property (nonatomic, assign, readonly) BOOL isGrayscale;
 
 /**
- The string representation of `<protectionMode>`.
- */
-@property (nonatomic, assign, readonly) NSString *protectionModeString;
-
-/**
  The dictionary representation of this image format.
  
  @discussion Fast Image Cache automatically serializes the image formats that it uses to disk. If an image format ever changes, Fast Image Cache automatically detects the change and invalidates the
@@ -160,8 +155,6 @@ typedef NS_ENUM(NSUInteger, FICImageFormatStyle) {
  @param maximumCount The maximum number of entries that an image table can contain for this image format.
  
  @param devices A bitmask of type `<FICImageFormatDevices>` that defines which devices are managed by an image table.
- 
- @param protectionMode The data protection mode to use when creating the backing image table file for this image format. See the `<protectionMode>` property description for more information.
  
  @return An autoreleased instance of `FICImageFormat` or one of its subclasses, if any exist.
  */

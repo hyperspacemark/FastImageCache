@@ -66,7 +66,6 @@ static NSString *const FICImageTableFormatKey = @"format";
     NSDictionary *_imageFormatDictionary;
     int32_t _metadataVersion;
 
-    NSString *_fileDataProtectionMode;
     BOOL _canAccessData;
 }
 
@@ -189,13 +188,9 @@ static NSString *const FICImageTableFormatKey = @"format";
         
         if ([fileManager fileExistsAtPath:_filePath] == NO) {
             NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-            [attributes setValue:[_imageFormat protectionModeString] forKeyPath:NSFileProtectionKey];
             [fileManager createFileAtPath:_filePath contents:nil attributes:attributes];
         }
-       
-        NSDictionary *attributes = [fileManager attributesOfItemAtPath:_filePath error:NULL];
-        _fileDataProtectionMode = [attributes objectForKey:NSFileProtectionKey];
-        
+               
         _fileDescriptor = open([_filePath fileSystemRepresentation], O_RDWR | O_CREAT, 0666);
         
         if (_fileDescriptor >= 0) {
