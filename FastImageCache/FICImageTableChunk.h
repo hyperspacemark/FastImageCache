@@ -6,7 +6,7 @@
 //  See LICENSE for full license agreement.
 //
 
-#import "FICImports.h"
+@import Foundation;
 
 @class FICImageTable;
 

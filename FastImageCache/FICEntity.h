@@ -6,7 +6,8 @@
 //  See LICENSE for full license agreement.
 //
 
-#import "FICImports.h"
+@import Foundation;
+
 @class FICImageFormat;
 
 typedef void (^FICEntityImageDrawingBlock)(CGContextRef context, CGSize contextSize);

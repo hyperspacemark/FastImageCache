@@ -6,7 +6,8 @@
 //  See LICENSE for full license agreement.
 //
 
-#import "FICEntity.h"
+@import FastImageCache;
+@import CoreGraphics;
 
 extern NSString *const FICDPhotoImageFormatFamily;
 

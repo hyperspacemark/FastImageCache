@@ -6,7 +6,7 @@
 //  See LICENSE for full license agreement.
 //
 
-#import "FICImports.h"
+@import Foundation;
 
 size_t FICByteAlign(size_t bytesPerRow, size_t alignment);
 size_t FICByteAlignForCoreAnimation(size_t bytesPerRow);
