@@ -14,7 +14,11 @@ FOUNDATION_EXPORT double FastImageCacheVersionNumber;
 //! Project version string for FastImageCache.
 FOUNDATION_EXPORT const unsigned char FastImageCacheVersionString[];
 
-#import <FastImageCache/FICImageCache.h>
 #import <FastImageCache/FICEntity.h>
+#import <FastImageCache/FICImageCache.h>
+#import <FastImageCache/FICImageCache+FICErrorLogging.h>
 #import <FastImageCache/FICImageFormat.h>
+#import <FastImageCache/FICImageTable.h>
+#import <FastImageCache/FICImageTableChunk.h>
+#import <FastImageCache/FICImageTableEntry.h>
 #import <FastImageCache/FICUtilities.h>
