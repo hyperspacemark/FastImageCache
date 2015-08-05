@@ -510,38 +510,12 @@ static void _FICReleaseImageData(void *info, const void *data, size_t size) {
     }
 }
 
-// There's inherently a race condition between when you ask whether the data is
-// accessible and when you try to use that data. Sidestep this issue altogether
-// by using NSFileProtectionNone
-- (BOOL)canAccessEntryData {
-    BOOL result = YES;
-#if TARGET_OS_IOS
-    if ([_fileDataProtectionMode isEqualToString:NSFileProtectionComplete]) {
-        result = [[UIApplication sharedApplication] isProtectedDataAvailable];
-    } else if ([_fileDataProtectionMode isEqualToString:NSFileProtectionCompleteUntilFirstUserAuthentication]) {
-        // For "complete until first auth", if we were previously able to access data, then we'll still be able to
-        // access it. If we haven't yet been able to access data, we'll need to try until we are successful.
-        if (_canAccessData == NO) {
-            if ([[UIApplication sharedApplication] isProtectedDataAvailable]) {
-                // we are unlocked, so we're good to go.
-                _canAccessData = YES;
-            } else {
-                // we are locked, so try to access data.
-                _canAccessData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:_filePath] options:NSDataReadingMappedAlways error:NULL] != nil;
-            }
-        }
-    }
-#endif
-    return result;
-}
-
 - (FICImageTableEntry *)_entryDataAtIndex:(NSInteger)index {
     FICImageTableEntry *entryData = nil;
     
     [_lock lock];
 
-    BOOL canAccessData = [self canAccessEntryData];
-    if (index < _entryCount && canAccessData) {
+    if (index < _entryCount) {
         off_t entryOffset = index * _entryLength;
         size_t chunkIndex = (size_t)(entryOffset / _chunkLength);
         
@@ -569,12 +543,7 @@ static void _FICReleaseImageData(void *info, const void *data, size_t size) {
     [_lock unlock];
     
     if (!entryData) {
-        NSString *message = nil;
-        if (canAccessData) {
-            message = [NSString stringWithFormat:@"*** FIC Error: %s failed to get entry for index %ld.", __PRETTY_FUNCTION__, (long)index];
-        } else {
-            message = [NSString stringWithFormat:@"*** FIC Error: %s. Cannot get entry data because imageTable's file has data protection enabled and that data is not currently accessible.", __PRETTY_FUNCTION__];
-        }
+        NSString *message = [NSString stringWithFormat:@"*** FIC Error: %s failed to get entry for index %ld.", __PRETTY_FUNCTION__, (long)index];
         [self.imageCache _logMessage:message];
     }
     

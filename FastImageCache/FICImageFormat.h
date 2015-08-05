@@ -34,12 +34,6 @@ typedef NS_ENUM(NSUInteger, FICImageFormatStyle) {
     FICImageFormatStyle8BitGrayscale,
 };
 
-typedef NS_ENUM(NSUInteger, FICImageFormatProtectionMode) {
-    FICImageFormatProtectionModeNone,
-    FICImageFormatProtectionModeComplete,
-    FICImageFormatProtectionModeCompleteUntilFirstUserAuthentication,
-};
-
 /**
  `FICImageFormat` acts as a definition for the types of images that are stored in the image cache. Each image format must have a unique name, but multiple formats can belong to the same family.
  All images associated with a particular format must have the same image dimentions and opacity preference. You can define the maximum number of entries that an image format can accommodate to
@@ -136,24 +130,6 @@ typedef NS_ENUM(NSUInteger, FICImageFormatProtectionMode) {
 @property (nonatomic, assign, readonly) BOOL isGrayscale;
 
 /**
- The data protection mode that image table files will be created with.
- 
- `FICImageFormatProtectionMode` has the following values:
- 
- - `FICImageFormatProtectionModeNone`: No data protection is used. The image table file backing this image format will always be available for reading and writing.
- - `FICImageFormatProtectionModeComplete`: Complete data protection is used. As soon as the system enables data protection (i.e., when the device is locked), the image table file backing this image
- format will not be available for reading and writing. As a result, images of this format should not be requested by Fast Image Cache when executing backgrounded code.
- - `FICImageFormatProtectionModeCompleteUntilFirstUserAuthentication`: Partial data protection is used. After a device restart, until the user unlocks the device for the first time, complete data
- protection is in effect. However, after the device has been unlocked for the first time, the image table file backing this image format will remain available for readin and writing. This mode may be
- a good compromise between encrypting image table files after the device powers down and allowing the files to be accessed successfully by Fast Image Cache, whether or not the device is subsequently
- locked.
- 
- @note Data protection can prevent Fast Image Cache from accessing its image table files to read and write image data. If the image data being stored in Fast Image Cache is not sensitive in nature,
- consider using `FICImageFormatProtectionModeNone` to prevent any issues accessing image table files when the disk is encrypted.
- */
-@property (nonatomic, assign) FICImageFormatProtectionMode protectionMode;
-
-/**
  The string representation of `<protectionMode>`.
  */
 @property (nonatomic, assign, readonly) NSString *protectionModeString;
@@ -189,6 +165,6 @@ typedef NS_ENUM(NSUInteger, FICImageFormatProtectionMode) {
  
  @return An autoreleased instance of `FICImageFormat` or one of its subclasses, if any exist.
  */
-+ (instancetype)formatWithName:(NSString *)name family:(NSString *)family imageSize:(CGSize)imageSize style:(FICImageFormatStyle)style maximumCount:(NSInteger)maximumCount devices:(FICImageFormatDevices)devices protectionMode:(FICImageFormatProtectionMode)protectionMode;
++ (instancetype)formatWithName:(NSString *)name family:(NSString *)family imageSize:(CGSize)imageSize style:(FICImageFormatStyle)style maximumCount:(NSInteger)maximumCount devices:(FICImageFormatDevices)devices;
 
 @end
