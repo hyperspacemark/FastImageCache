@@ -10,6 +10,10 @@
 #import "FICImageTable.h"
 #import "FICImageTableEntry.h"
 
+#if TARGET_OS_WATCH
+@import WatchKit;
+#endif
+
 #pragma mark Internal Definitions
 
 static NSString *const FICImageFormatNameKey = @"name";
@@ -55,8 +59,8 @@ static NSString *const FICImageFormatProtectionModeKey = @"protectionMode";
     BOOL currentSizeEqualToNewSize = CGSizeEqualToSize(imageSize, _imageSize);
     if (currentSizeEqualToNewSize == NO) {
         _imageSize = imageSize;
-        
-        CGFloat screenScale = [[UIScreen mainScreen] scale];
+
+        CGFloat screenScale = [[self class] screenScale];
         _pixelSize = CGSizeMake(screenScale * _imageSize.width, screenScale * _imageSize.height);
     }
 }
@@ -173,7 +177,7 @@ static NSString *const FICImageFormatProtectionModeKey = @"protectionMode";
     [dictionaryRepresentation setValue:[NSNumber numberWithInt:_devices] forKey:FICImageFormatDevicesKey];
     [dictionaryRepresentation setValue:[NSNumber numberWithUnsignedInteger:_protectionMode] forKey:FICImageFormatProtectionModeKey];
 
-    [dictionaryRepresentation setValue:[NSNumber numberWithFloat:[[UIScreen mainScreen] scale]] forKey:FICImageTableScreenScaleKey];
+    [dictionaryRepresentation setValue:[NSNumber numberWithFloat:[[self class] screenScale]] forKey:FICImageTableScreenScaleKey];
     [dictionaryRepresentation setValue:[NSNumber numberWithUnsignedInteger:[FICImageTableEntry metadataVersion]] forKey:FICImageTableEntryDataVersionKey];
     
     return dictionaryRepresentation;
@@ -195,6 +199,18 @@ static NSString *const FICImageFormatProtectionModeKey = @"protectionMode";
     [imageFormatCopy setProtectionMode:[self protectionMode]];
     
     return imageFormatCopy;
+}
+
+#pragma mark - Private
+
++ (CGFloat)screenScale {
+#if TARGET_OS_IOS
+    return [[UIScreen mainScreen] scale];
+#elif TARGET_OS_WATCH
+    return [[WKInterfaceDevice currentDevice] screenScale];
+#else
+    return 2.0;
+#endif
 }
 
 @end

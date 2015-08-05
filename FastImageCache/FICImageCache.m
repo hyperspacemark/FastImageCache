@@ -100,7 +100,7 @@ static FICImageCache *__imageCache = nil;
         [self _logMessage:[NSString stringWithFormat:@"*** FIC Error: %s FICImageCache has already been configured with its image formats.", __PRETTY_FUNCTION__]];
     } else {
         NSMutableSet *imageTableFiles = [NSMutableSet set];
-        FICImageFormatDevices currentDevice = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? FICImageFormatDevicePad : FICImageFormatDevicePhone;
+        FICImageFormatDevices currentDevice = [self currentDevice];
         for (FICImageFormat *imageFormat in formats) {
             NSString *formatName = [imageFormat name];
             FICImageFormatDevices devices = [imageFormat devices];
@@ -476,6 +476,18 @@ static void _FICAddCompletionBlockForEntity(NSString *formatName, NSMutableDicti
     if (_delegateImplementsErrorDidOccurWithMessage) {
         [_delegate imageCache:self errorDidOccurWithMessage:message];
     }
+}
+
+#pragma mark - Private
+
+- (FICImageFormatDevices)currentDevice {
+#if TARGET_OS_IOS
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? FICImageFormatDevicePad : FICImageFormatDevicePhone;
+#elif TARGET_OS_WATCH
+    return FICImageFormatDeviceWatch;
+#else
+    return FICImageFormatDeviceMac;
+#endif
 }
 
 @end

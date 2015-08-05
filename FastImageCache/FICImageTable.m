@@ -12,6 +12,7 @@
 #import "FICImageTableChunk.h"
 #import "FICImageTableEntry.h"
 #import "FICUtilities.h"
+#import "FICImageFormat+Private.h"
 #import <libkern/OSAtomic.h>
 
 #import "FICImageCache+FICErrorLogging.h"
@@ -155,7 +156,7 @@ static NSString *const FICImageTableFormatKey = @"format";
         _imageFormat = [imageFormat copy];
         _imageFormatDictionary = [imageFormat dictionaryRepresentation];
         
-        _screenScale = [[UIScreen mainScreen] scale];
+        _screenScale = [FICImageFormat screenScale];
         
         CGSize pixelSize = [_imageFormat pixelSize];
         NSInteger bytesPerPixel = [_imageFormat bytesPerPixel];
@@ -514,6 +515,7 @@ static void _FICReleaseImageData(void *info, const void *data, size_t size) {
 // by using NSFileProtectionNone
 - (BOOL)canAccessEntryData {
     BOOL result = YES;
+#if TARGET_OS_IOS
     if ([_fileDataProtectionMode isEqualToString:NSFileProtectionComplete]) {
         result = [[UIApplication sharedApplication] isProtectedDataAvailable];
     } else if ([_fileDataProtectionMode isEqualToString:NSFileProtectionCompleteUntilFirstUserAuthentication]) {
@@ -529,6 +531,7 @@ static void _FICReleaseImageData(void *info, const void *data, size_t size) {
             }
         }
     }
+#endif
     return result;
 }
 

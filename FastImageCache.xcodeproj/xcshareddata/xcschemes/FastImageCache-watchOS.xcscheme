@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2E567671B316D5800906840"
+               BlueprintIdentifier = "365106891B72BCBB004D5067"
                BuildableName = "FastImageCache.framework"
-               BlueprintName = "FastImageCache"
-               ReferencedContainer = "container:FastImageCache.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2E567721B316D5800906840"
-               BuildableName = "FastImageCacheTests.xctest"
-               BlueprintName = "FastImageCacheTests"
+               BlueprintName = "FastImageCache-watchOS"
                ReferencedContainer = "container:FastImageCache.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2E567721B316D5800906840"
-               BuildableName = "FastImageCacheTests.xctest"
-               BlueprintName = "FastImageCacheTests"
-               ReferencedContainer = "container:FastImageCache.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B2E567671B316D5800906840"
-            BuildableName = "FastImageCache.framework"
-            BlueprintName = "FastImageCache"
-            ReferencedContainer = "container:FastImageCache.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -78,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B2E567671B316D5800906840"
+            BlueprintIdentifier = "365106891B72BCBB004D5067"
             BuildableName = "FastImageCache.framework"
-            BlueprintName = "FastImageCache"
+            BlueprintName = "FastImageCache-watchOS"
             ReferencedContainer = "container:FastImageCache.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -96,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B2E567671B316D5800906840"
+            BlueprintIdentifier = "365106891B72BCBB004D5067"
             BuildableName = "FastImageCache.framework"
-            BlueprintName = "FastImageCache"
+            BlueprintName = "FastImageCache-watchOS"
             ReferencedContainer = "container:FastImageCache.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

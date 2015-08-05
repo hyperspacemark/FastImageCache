@@ -7,14 +7,25 @@
 //
 
 @import Foundation;
-@import UIKit;
+@import CoreGraphics;
 
 @class FICImageTable;
 
+#if TARGET_OS_IOS
+@import UIKit;
 typedef NS_OPTIONS(NSUInteger, FICImageFormatDevices) {
     FICImageFormatDevicePhone = 1 << UIUserInterfaceIdiomPhone,
     FICImageFormatDevicePad = 1 << UIUserInterfaceIdiomPad,
 };
+#elif TARGET_OS_WATCH
+typedef NS_OPTIONS(NSUInteger, FICImageFormatDevices) {
+    FICImageFormatDeviceWatch = 1 << 0,
+};
+#else
+typedef NS_OPTIONS(NSUInteger, FICImageFormatDevices) {
+    FICImageFormatDeviceMac = 1 << 0
+};
+#endif
 
 typedef NS_ENUM(NSUInteger, FICImageFormatStyle) {
     FICImageFormatStyle32BitBGRA,
